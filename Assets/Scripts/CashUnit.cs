@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 public class CashUnit : MonoBehaviour
 {
     public TextMeshProUGUI textMeshPro;
-    int number = 1234567;
+    int number;
 
     void Start()
     {
