@@ -4,12 +4,17 @@ using System.Text.RegularExpressions;
 
 public class CashUnit : MonoBehaviour
 {
-    public TextMeshProUGUI textMeshPro;
-    int number;
+    public TextMeshProUGUI cashTMPro;
 
     void Start()
     {
-        string regularNumber = Regex.Replace(number.ToString(), @"(?<=\d)(?=(\d{3})+(?!\d))", ",");
-        textMeshPro.text = regularNumber;
+        UpdateCash();
+    }
+    
+    public void UpdateCash()
+    {
+        int cashNum = GameManager.Instance.userData.Cash;
+        string cashNumber = Regex.Replace(cashNum.ToString(), @"(?<=\d)(?=(\d{3})+(?!\d))", ",");
+        cashTMPro.text = cashNumber;
     }
 }
