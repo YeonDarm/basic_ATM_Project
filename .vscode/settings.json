@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ATM_project.sln"
+    "dotnet.defaultSolution": "basic_ATM_Project.sln"
 }
