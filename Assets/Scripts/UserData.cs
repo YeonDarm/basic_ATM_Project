@@ -1,12 +1,11 @@
-using System;
 using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public class UserData
 {
     [SerializeField] private string userName;
     [SerializeField] private int cash;
-    [SerializeField] private int balance;
+    [SerializeField] private ulong balance;
 
     public string UserName
     {
@@ -20,13 +19,13 @@ public class UserData
         set { cash = value; }
     }
 
-    public int Balance
+    public ulong Balance // 은행 잔액은 훨씬 클 수 있다. u: 언사인드(부호 없이)
     {
         get { return balance; }
         set { balance = value; }
     }
 
-    public UserData(string userName, int cash, int balance)
+    public UserData(string userName, int cash, ulong balance)
     {
         this.userName = userName;
         this.cash = cash;

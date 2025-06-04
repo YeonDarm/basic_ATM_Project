@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        userData = new UserData("상연", 100000, 50000);
+        userData = new UserData("상연", 100000, 5000000000000000000);
 
         Debug.Log("유저 데이터: " + userData.UserName);
         Debug.Log("현금: " + userData.Cash);
