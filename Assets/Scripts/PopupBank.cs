@@ -7,16 +7,22 @@ public class PopupBank : MonoBehaviour
 {
     [SerializeField] private GameObject deposite;
     [SerializeField] private GameObject withdraw;
-    [SerializeField] private Vector3 destination;
-    [SerializeField] private float speed = 500f;
+    [SerializeField] private Vector2 popupOnPos = new Vector2(0, 0);
+    [SerializeField] private Vector2 popupOffPos = new Vector2(0, -924f);
+    [SerializeField] private float speed; // 인스펙터에서 조정
 
-
+    void Start()
+    {
+        
+    }
 
     public void ActiveUI(GameObject uiObject)
     {
         if (uiObject == null) return;
 
         bool isActive = !uiObject.activeSelf;
+        RectTransform rt = uiObject.GetComponent<RectTransform>();
+
 
         deposite?.SetActive(false);
         withdraw?.SetActive(false);
@@ -24,14 +30,15 @@ public class PopupBank : MonoBehaviour
         if (isActive)
         {
             uiObject.SetActive(true);
-            StartCoroutine(PopupUPAnim(uiObject.transform));
+            if (rt != null)
+            {
+                StartCoroutine(PopupUPAnim(rt));
+            }
         }
         else
         {
             StartCoroutine(PopupDownAndDisable(uiObject));
         }
-
-        uiObject.SetActive(isActive);
     }
 
 
@@ -54,35 +61,38 @@ public class PopupBank : MonoBehaviour
     }
 
 
-    public IEnumerator PopupUPAnim(Transform uiPos)
+    public IEnumerator PopupUPAnim(RectTransform uiRect)
     {
-        Vector3 target = new Vector3(0, Mathf.Max(destination.y, 0f), 0);
-
-        while (Vector3.Distance(uiPos.position, target) > 0.01f)
+        while (Vector3.Distance(uiRect.anchoredPosition, popupOnPos) > 0.01f)
         {
-            uiPos.position = Vector3.MoveTowards(uiPos.position, target, speed * Time.deltaTime);
+            float step = Time.deltaTime;
+            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOnPos, speed * step);
             yield return null;
         }
 
-        uiPos.position = target;
+        uiRect.anchoredPosition = popupOnPos;
     }
 
-    public IEnumerator PopupDownAnim(Transform uiPos)
+    public IEnumerator PopupDownAnim(RectTransform uiRect)
     {
-        Vector3 target = new Vector3(0, Mathf.Max(destination.y, -924f), 0);
-        while (Vector3.Distance(uiPos.position, target) > 0.01f)
+        while (Vector3.Distance(uiRect.anchoredPosition, popupOffPos) > 0.01f)
         {
-            uiPos.position = Vector3.MoveTowards(uiPos.position, target, speed * Time.deltaTime);
+            float step = Time.deltaTime;
+            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOffPos, speed * step);
+            // Debug.Log($"현재 Pos: {uiRect.anchoredPosition}, 이동 중: {step}");
             yield return null;
         }
 
-        uiPos.position = target;
+        uiRect.anchoredPosition = popupOffPos;
     }
 
     private IEnumerator PopupDownAndDisable(GameObject uiObject)
     {
-        yield return PopupDownAnim(uiObject.transform);
-
+        RectTransform rt = uiObject.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            yield return PopupDownAnim(rt);    
+        }
         uiObject.SetActive(false);
     }
 }
