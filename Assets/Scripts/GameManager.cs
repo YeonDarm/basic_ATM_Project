@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public UserData userData { get; private set; }
+    public UserInfo userInfo;
 
     private void Awake()
     {
@@ -15,15 +16,39 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        userData = new UserData("상연", 100000, 50000);
     }
 
     void Start()
     {
-        userData = new UserData("상연", 100000, 5000000000000000000);
+        if (userInfo == null)
+        {
+            userInfo = FindAnyObjectByType<UserInfo>();
+        }
 
-        Debug.Log("유저 데이터: " + userData.UserName);
-        Debug.Log("현금: " + userData.Cash);
-        Debug.Log("잔액: " + userData.Balance);
+        UpdateName("문상연");
+        UpdateCash(500);
+        UpdateBalance(500);
+    }
+
+    public void UpdateName(string newName)
+    {
+        userData.UserName = newName;
+        userInfo.UserRenew();
+    }
+
+    public void UpdateCash(int amount)
+    {
+        userData.Cash += amount;
+        userInfo.UserRenew();
+    }
+
+    public void UpdateBalance(ulong amount)
+    {
+        userData.Balance += amount;
+        userInfo.UserRenew();
     }
 }

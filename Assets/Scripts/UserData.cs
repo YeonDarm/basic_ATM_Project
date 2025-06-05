@@ -1,6 +1,3 @@
-using TMPro;
-using UnityEngine;
-
 [System.Serializable]
 public class UserData
 {
@@ -31,22 +28,6 @@ public class UserData
         this.userName = userName;
         this.cash = cash;
         this.balance = balance;
-    }
-}
-
-public class UserInfo : MonoBehaviour
-{
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI cashText;
-    public TextMeshProUGUI balanceText;
-
-    public UserData userData;
-
-    void Start()
-    {
-        nameText.text = userData.userName;
-        cashText.text = string.Format("{0:N0}", userData.cash);
-        balanceText.text = string.Format("{0:N0}", userData.balance);
     }
 }
 
