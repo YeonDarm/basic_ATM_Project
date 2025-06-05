@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public UserData userData { get; private set; }
     public UserInfo userInfo;
     private string saveFilePath; // 저장할 파일 경로
+    private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
 
 
     private void Awake()
@@ -64,9 +65,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SaveUserData()
     {
-        string jdata = JsonConvert.SerializeObject(userData, Formatting.Indented);
+        string currentJson = JsonConvert.SerializeObject(userData, Formatting.Indented);
         //Formatting.Indented 옵션은 사람이 읽기 쉽게 만듦.
-        File.WriteAllText(saveFilePath, jdata);
+
+        if (currentJson == lastSavedJson) return;
+        
+        //데이터 변경 시 파일에 저장.
+        File.WriteAllText(saveFilePath, currentJson);
+        lastSavedJson = currentJson; // 저장 상태 업데이트
+
         Debug.Log("데이터 저장 완료: " + saveFilePath);
     }
 
@@ -75,9 +82,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadUserData()
     {
-        // 파일 읽기
-        string jdata = File.ReadAllText(saveFilePath);
-        userData = JsonConvert.DeserializeObject<UserData>(jdata);
-        Debug.Log("데이터 불러오기 완료: " + saveFilePath);
+        if (File.Exists(saveFilePath)) // 파일 읽기
+        {
+            string jdata = File.ReadAllText(saveFilePath);
+            userData = JsonConvert.DeserializeObject<UserData>(jdata);
+            lastSavedJson = jdata;
+            Debug.Log("데이터 불러오기 완료: " + saveFilePath);
+        }
+        else
+        {
+            Debug.LogWarning("저장된 데이터가 없음.");
+        }
     }
 }
