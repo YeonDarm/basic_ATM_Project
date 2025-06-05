@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PopupMessage : MonoBehaviour
 {
+    public static PopupMessage Instance { get; private set; }
     public GameObject popupSuccess;
     public GameObject popupFail;
     public GameObject popupError;
@@ -10,7 +11,17 @@ public class PopupMessage : MonoBehaviour
     //현재 활성화된 오브젝트 추적용 변수
     private GameObject currentPopup;
 
-
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void ActivePopup(GameObject popupObject)
     {

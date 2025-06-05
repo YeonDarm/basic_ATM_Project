@@ -13,11 +13,11 @@ public class Withdraw : MonoBehaviour
         {
             GameManager.Instance.userData.balance -= (ulong)amount;
             GameManager.Instance.UpdateCash(amount);
-            Debug.Log(amount + " 출금 완료");
+            PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
         }
         else
         {
-            Debug.Log("잔액이 부족합니다.");
+            PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Fail);
         }
     }
 
@@ -29,7 +29,7 @@ public class Withdraw : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("유효한 숫자를 입력해주세요.");
+            PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Error);
             withdrawInput.text = "";
         }
 
