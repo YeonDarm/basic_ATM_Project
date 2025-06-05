@@ -1,4 +1,5 @@
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,9 +30,9 @@ public class GameManager : MonoBehaviour
             userInfo = FindAnyObjectByType<UserInfo>();
         }
 
-        UpdateName("문상연");
-        UpdateCash(500);
-        UpdateBalance(500);
+        // UpdateName("문상연");
+        // UpdateCash(500);
+        // UpdateBalance(500);
     }
 
     public void UpdateName(string newName)
@@ -50,5 +51,16 @@ public class GameManager : MonoBehaviour
     {
         userData.Balance += amount;
         userInfo.UserRenew();
+    }
+
+    //저장 및 로드 기능
+    public void SaveUserData()
+    {
+
+    }
+
+    public void LoadUserData()
+    {
+
     }
 }
