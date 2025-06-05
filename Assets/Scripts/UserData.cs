@@ -4,9 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class UserData
 {
-    [SerializeField] private string userName;
-    [SerializeField] private int cash;
-    [SerializeField] private ulong balance;
+    public string userName;
+    public int cash;
+    public ulong balance;
 
     public string UserName
     {
@@ -34,9 +34,19 @@ public class UserData
     }
 }
 
-// public class UserInfo : MonoBehaviour
-// {
-//     public TextMeshProUGUI
-//     public TextMeshProUGUI
-//     public TextMeshProUGUI
-// }
+public class UserInfo : MonoBehaviour
+{
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI cashText;
+    public TextMeshProUGUI balanceText;
+
+    public UserData userData;
+
+    void Start()
+    {
+        nameText.text = userData.userName;
+        cashText.text = string.Format("{0:N0}", userData.cash);
+        balanceText.text = string.Format("{0:N0}", userData.balance);
+    }
+}
+
