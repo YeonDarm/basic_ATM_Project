@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         {
             string name = PlayerPrefs.GetString("Name");
             int cash = PlayerPrefs.GetInt("Cash");
-            ulong balance = ulong.Parse(PlayerPrefs.GetString("Balance"));
+            ulong balance = ulong.Parse(PlayerPrefs.GetString("Balance")); //Parse로 문자열을 ulong으로 변환.
 
             userData = new UserData(name, cash, balance);
             Debug.Log($"PlayerPrefs 불러오기 확인: Name: {name}, Cash: {cash}, Balance: {balance}");
