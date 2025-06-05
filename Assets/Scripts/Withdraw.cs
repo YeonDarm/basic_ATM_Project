@@ -5,14 +5,14 @@ public class Withdraw : MonoBehaviour
 {
     public TMP_InputField withdrawInput;
 
-    public void WithdrawAmount(ulong amount)
+    public void WithdrawAmount(int amount)
     {
         if (amount <= 0) return;
 
-        if (GameManager.Instance.userData.balance >= amount)
+        if (GameManager.Instance.userData.balance >= (ulong)amount)
         {
-            GameManager.Instance.userData.balance -= amount;
-            GameManager.Instance.UpdateCash((int)amount);
+            GameManager.Instance.userData.balance -= (ulong)amount;
+            GameManager.Instance.UpdateCash(amount);
             Debug.Log(amount + " 출금 완료");
         }
         else
@@ -23,7 +23,7 @@ public class Withdraw : MonoBehaviour
 
     public void WithdrawInputAmount()
     {
-        if (ulong.TryParse(withdrawInput.text, out ulong amount))
+        if (int.TryParse(withdrawInput.text, out int amount))
         {
             WithdrawAmount(amount);
         }

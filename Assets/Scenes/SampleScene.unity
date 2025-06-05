@@ -266,6 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 60747602}
+  - component: {fileID: 60747603}
   m_Layer: 5
   m_Name: Dep_EnterText
   m_TagString: Untagged
@@ -294,6 +295,19 @@ RectTransform:
   m_AnchoredPosition: {x: 190, y: -616.5}
   m_SizeDelta: {x: 380, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &60747603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60747601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6704a6d803219ca40b24c27d6edc5421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depositInput: {fileID: 1060762627}
 --- !u!1 &75400361
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +635,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: SangYeon
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8824e73f0b7af4647960c69be2651218, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -685,7 +699,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &114278728
@@ -1763,6 +1777,7 @@ GameObject:
   - component: {fileID: 255853554}
   - component: {fileID: 255853553}
   - component: {fileID: 255853552}
+  - component: {fileID: 255853555}
   m_Layer: 5
   m_Name: WD_30000
   m_TagString: Untagged
@@ -1833,7 +1848,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 255853553}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 255853555}
+        m_TargetAssemblyTypeName: Withdraw, Assembly-CSharp
+        m_MethodName: WithdrawAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 30000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &255853553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,6 +1899,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255853550}
   m_CullTransparentMesh: 1
+--- !u!114 &255853555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255853550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9f3c15b1370a34ba5469cdbec88567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  withdrawInput: {fileID: 0}
 --- !u!1 &260139334
 GameObject:
   m_ObjectHideFlags: 0
@@ -3271,6 +3311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 514982145}
+  - component: {fileID: 514982146}
   m_Layer: 5
   m_Name: WD_EnterText
   m_TagString: Untagged
@@ -3299,6 +3340,19 @@ RectTransform:
   m_AnchoredPosition: {x: 190, y: -616.5}
   m_SizeDelta: {x: 380, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &514982146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514982144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9f3c15b1370a34ba5469cdbec88567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  withdrawInput: {fileID: 327662420}
 --- !u!1 &515231804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,6 +3365,7 @@ GameObject:
   - component: {fileID: 515231808}
   - component: {fileID: 515231807}
   - component: {fileID: 515231806}
+  - component: {fileID: 515231809}
   m_Layer: 5
   m_Name: Dep_10000
   m_TagString: Untagged
@@ -3381,7 +3436,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 515231807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 515231809}
+        m_TargetAssemblyTypeName: Deposite, Assembly-CSharp
+        m_MethodName: DepositAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &515231807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3420,6 +3487,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515231804}
   m_CullTransparentMesh: 1
+--- !u!114 &515231809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515231804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6704a6d803219ca40b24c27d6edc5421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depositInput: {fileID: 0}
 --- !u!1 &518621074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4327,6 +4407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717374886}
+  - component: {fileID: 717374887}
   m_Layer: 5
   m_Name: UserInfo (1)
   m_TagString: Untagged
@@ -4354,6 +4435,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &717374887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717374885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca54fd2462312743a4dc1ee2eedf45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 114278727}
+  cashText: {fileID: 1754783284}
+  balanceText: {fileID: 75400363}
 --- !u!1 &789039960
 GameObject:
   m_ObjectHideFlags: 0
@@ -4366,6 +4462,7 @@ GameObject:
   - component: {fileID: 789039964}
   - component: {fileID: 789039963}
   - component: {fileID: 789039962}
+  - component: {fileID: 789039965}
   m_Layer: 5
   m_Name: WD_50000
   m_TagString: Untagged
@@ -4436,7 +4533,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 789039963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 789039965}
+        m_TargetAssemblyTypeName: Withdraw, Assembly-CSharp
+        m_MethodName: WithdrawAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 50000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &789039963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4475,6 +4584,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789039960}
   m_CullTransparentMesh: 1
+--- !u!114 &789039965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789039960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9f3c15b1370a34ba5469cdbec88567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  withdrawInput: {fileID: 0}
 --- !u!1 &795677830
 GameObject:
   m_ObjectHideFlags: 0
@@ -4487,6 +4609,7 @@ GameObject:
   - component: {fileID: 795677834}
   - component: {fileID: 795677833}
   - component: {fileID: 795677832}
+  - component: {fileID: 795677835}
   m_Layer: 5
   m_Name: Dep_30000
   m_TagString: Untagged
@@ -4557,7 +4680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 795677833}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 795677835}
+        m_TargetAssemblyTypeName: Deposite, Assembly-CSharp
+        m_MethodName: DepositAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 30000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &795677833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4596,6 +4731,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795677830}
   m_CullTransparentMesh: 1
+--- !u!114 &795677835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795677830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6704a6d803219ca40b24c27d6edc5421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depositInput: {fileID: 0}
 --- !u!1 &835959816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6243,6 +6391,7 @@ GameObject:
   - component: {fileID: 1359792088}
   - component: {fileID: 1359792087}
   - component: {fileID: 1359792086}
+  - component: {fileID: 1359792089}
   m_Layer: 5
   m_Name: WD_10000
   m_TagString: Untagged
@@ -6313,7 +6462,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1359792087}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1359792089}
+        m_TargetAssemblyTypeName: Withdraw, Assembly-CSharp
+        m_MethodName: WithdrawAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1359792087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6352,6 +6513,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359792084}
   m_CullTransparentMesh: 1
+--- !u!114 &1359792089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359792084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9f3c15b1370a34ba5469cdbec88567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  withdrawInput: {fileID: 0}
 --- !u!1 &1396014950
 GameObject:
   m_ObjectHideFlags: 0
@@ -6643,7 +6817,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1429124574}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 514982146}
+        m_TargetAssemblyTypeName: Withdraw, Assembly-CSharp
+        m_MethodName: WithdrawInputAmount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1429124574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6694,6 +6880,7 @@ GameObject:
   - component: {fileID: 1465445329}
   - component: {fileID: 1465445328}
   - component: {fileID: 1465445327}
+  - component: {fileID: 1465445330}
   m_Layer: 5
   m_Name: Dep_50000
   m_TagString: Untagged
@@ -6764,7 +6951,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1465445328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1465445330}
+        m_TargetAssemblyTypeName: Deposite, Assembly-CSharp
+        m_MethodName: DepositAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 50000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1465445328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6803,6 +7002,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465445325}
   m_CullTransparentMesh: 1
+--- !u!114 &1465445330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465445325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6704a6d803219ca40b24c27d6edc5421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depositInput: {fileID: 0}
 --- !u!1 &1469837415
 GameObject:
   m_ObjectHideFlags: 0
@@ -6998,8 +7210,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SangYeon
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8824e73f0b7af4647960c69be2651218, type: 2}
+  m_sharedMaterial: {fileID: -5594092146843263584, guid: 8824e73f0b7af4647960c69be2651218, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7284,6 +7496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673356195}
+  - component: {fileID: 1673356196}
   m_Layer: 5
   m_Name: UserInfo
   m_TagString: Untagged
@@ -7311,6 +7524,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1673356196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673356194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca54fd2462312743a4dc1ee2eedf45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1487454276}
+  cashText: {fileID: 1225258707}
+  balanceText: {fileID: 1725216742}
 --- !u!1 &1684769170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7816,7 +8044,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1741297582}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 60747603}
+        m_TargetAssemblyTypeName: Deposite, Assembly-CSharp
+        m_MethodName: DepositInputAmount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1741297582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8207,7 +8447,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2008540826}
-  - component: {fileID: 2008540827}
   - component: {fileID: 2008540828}
   m_Layer: 5
   m_Name: UserInfo
@@ -8240,22 +8479,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 165}
   m_SizeDelta: {x: 670, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2008540827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008540825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67f4ae5560d8a2c40ae0b75ff6b3fca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cashTMPro: {fileID: 676195503}
-  balanceTMPro: {fileID: 1396014952}
-  cash: 100000
-  balance: 5000000000000
 --- !u!114 &2008540828
 MonoBehaviour:
   m_ObjectHideFlags: 0
