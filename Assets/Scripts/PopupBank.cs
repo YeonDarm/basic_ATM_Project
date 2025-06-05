@@ -61,8 +61,7 @@ public class PopupBank : MonoBehaviour
     {
         while (Vector3.Distance(uiRect.anchoredPosition, popupOnPos) > 0.01f)
         {
-            float step = Time.deltaTime;
-            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOnPos, speed * step);
+            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOnPos, speed * Time.deltaTime);
             yield return null;
         }
 
@@ -73,9 +72,7 @@ public class PopupBank : MonoBehaviour
     {
         while (Vector3.Distance(uiRect.anchoredPosition, popupOffPos) > 0.01f)
         {
-            float step = Time.deltaTime;
-            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOffPos, speed * step);
-
+            uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOffPos, speed * Time.deltaTime);
             yield return null;
         }
 

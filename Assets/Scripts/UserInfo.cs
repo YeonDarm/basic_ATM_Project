@@ -8,8 +8,7 @@ public class UserInfo : MonoBehaviour
     public TextMeshProUGUI cashText;
     public TextMeshProUGUI balanceText;
 
-
-    void Start()
+    void Update()
     {
         UserRenew();
     }
