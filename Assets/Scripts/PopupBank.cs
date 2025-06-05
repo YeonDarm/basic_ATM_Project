@@ -23,10 +23,6 @@ public class PopupBank : MonoBehaviour
         bool isActive = !uiObject.activeSelf;
         RectTransform rt = uiObject.GetComponent<RectTransform>();
 
-
-        deposite?.SetActive(false);
-        withdraw?.SetActive(false);
-
         if (isActive)
         {
             uiObject.SetActive(true);
@@ -79,7 +75,7 @@ public class PopupBank : MonoBehaviour
         {
             float step = Time.deltaTime;
             uiRect.anchoredPosition = Vector3.MoveTowards(uiRect.anchoredPosition, popupOffPos, speed * step);
-            // Debug.Log($"현재 Pos: {uiRect.anchoredPosition}, 이동 중: {step}");
+
             yield return null;
         }
 
@@ -91,7 +87,7 @@ public class PopupBank : MonoBehaviour
         RectTransform rt = uiObject.GetComponent<RectTransform>();
         if (rt != null)
         {
-            yield return PopupDownAnim(rt);    
+            yield return PopupDownAnim(rt);
         }
         uiObject.SetActive(false);
     }
