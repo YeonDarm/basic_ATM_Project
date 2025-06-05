@@ -1,5 +1,6 @@
 using UnityEngine;
 using Newtonsoft.Json;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,11 +57,13 @@ public class GameManager : MonoBehaviour
     //저장 및 로드 기능
     public void SaveUserData()
     {
-
+        string jdata = JsonConvert.SerializeObject("저장할 데이터");
+        File.WriteAllText(Application.dataPath + "/ATMUserData.json", jdata);
     }
 
     public void LoadUserData()
     {
-
+        string jdata = File.ReadAllText(Application.dataPath + "/ATMUserData.json");
+        
     }
 }
