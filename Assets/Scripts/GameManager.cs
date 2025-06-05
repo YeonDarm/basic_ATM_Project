@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public UserInfo userInfo;
     private string saveFilePath; // 저장할 파일 경로
     private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
+    private float saveInterval = 10f; // 자동 저장 주기.
+    private float timer = 0f;
 
 
     private void Awake()
@@ -35,10 +37,22 @@ public class GameManager : MonoBehaviour
         {
             userInfo = FindAnyObjectByType<UserInfo>();
         }
+        LoadUserData();
+    }
 
-        // UpdateName("문상연");
-        // UpdateCash(500);
-        // UpdateBalance(500);
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer >= saveInterval)
+        {
+            SaveUserData();
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            LoadUserData();
+        }
     }
 
     public void UpdateName(string newName)
