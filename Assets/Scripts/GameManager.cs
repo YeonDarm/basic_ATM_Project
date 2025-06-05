@@ -1,12 +1,15 @@
 using UnityEngine;
-using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public UserData userData { get; private set; }
     public UserInfo userInfo;
+    private string saveFilePath; // 저장할 파일 경로
+
 
     private void Awake()
     {
@@ -14,6 +17,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            saveFilePath = Path.Combine(Application.persistentDataPath, "ATMUserData.json");
         }
         else
         {
@@ -55,15 +59,25 @@ public class GameManager : MonoBehaviour
     }
 
     //저장 및 로드 기능
+    /// <summary>
+    /// 사용자 데이터를 JSON파일로 저장.
+    /// </summary>
     public void SaveUserData()
     {
-        string jdata = JsonConvert.SerializeObject("저장할 데이터");
-        File.WriteAllText(Application.dataPath + "/ATMUserData.json", jdata);
+        string jdata = JsonConvert.SerializeObject(userData, Formatting.Indented);
+        //Formatting.Indented 옵션은 사람이 읽기 쉽게 만듦.
+        File.WriteAllText(saveFilePath, jdata);
+        Debug.Log("데이터 저장 완료: " + saveFilePath);
     }
 
+    /// <summary>
+    /// JSON 파일에서 사용자 데이터를 불러옴.
+    /// </summary>
     public void LoadUserData()
     {
-        string jdata = File.ReadAllText(Application.dataPath + "/ATMUserData.json");
-        
+        // 파일 읽기
+        string jdata = File.ReadAllText(saveFilePath);
+        userData = JsonConvert.DeserializeObject<UserData>(jdata);
+        Debug.Log("데이터 불러오기 완료: " + saveFilePath);
     }
 }
