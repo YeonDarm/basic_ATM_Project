@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -32,3 +33,10 @@ public class UserData
         this.balance = balance;
     }
 }
+
+// public class UserInfo : MonoBehaviour
+// {
+//     public TextMeshProUGUI
+//     public TextMeshProUGUI
+//     public TextMeshProUGUI
+// }
