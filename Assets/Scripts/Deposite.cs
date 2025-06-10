@@ -9,10 +9,11 @@ public class Deposite : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        if (GameManager.Instance.userData.cash >= amount)
+        if (GameManager.Instance.userData.Cash >= amount)
         {
-            GameManager.Instance.userData.cash -= amount;
-            GameManager.Instance.UpdateBalance((ulong)amount);
+            GameManager.Instance.userData.Cash -= amount;
+            GameManager.Instance.userData.Balance += (ulong)amount;
+            // GameManager.Instance.UpdateBalance((ulong)amount);
             PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
             GameManager.Instance.SaveUserData();
             // GameManager.Instance.PlayerPrefsSave();

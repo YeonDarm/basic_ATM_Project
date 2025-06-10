@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
-
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public UserData userData { get; private set; }
-    public UserInfo userInfo;
+    public UserData userData { get; set; }
+    // public UserInfo userInfo;
     private string saveFilePath; // 저장할 파일 경로
     private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
 
@@ -25,37 +25,39 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        // userData = new UserData("상연", 100000, 50000);
+        
+        // userData = new UserData("asd", "asd", "상연", 100000, 50000);
     }
 
     void Start()
     {
-        if (userInfo == null)
-        {
-            userInfo = FindAnyObjectByType<UserInfo>();
-        }
-        LoadUserData();
-        // PlayerPrefsLoad();
+        // if (userInfo == null)
+        // {
+        //     userInfo = FindAnyObjectByType<UserInfo>();
+        // }
+        LoadUserData(); //저장된 Json데이터를 불러온다.
+        // userInfo.UserRenew(); // 사용자 데이터를 갱신한다.
+        // UserData 프로퍼티에서 값이 변경되면 이벤트 구독으로 항상 바뀌도록 개선.
+        // PlayerPrefsLoad(); // 저장/불러오기 2.
     }
 
-    public void UpdateName(string newName)
-    {
-        userData.UserName = newName;
-        userInfo.UserRenew();
-    }
+    // public void UpdateName(string newName)
+    // {
+    //     userData.UserName = newName;
+    //     userInfo.UserRenew();
+    // }
 
-    public void UpdateCash(int amount)
-    {
-        userData.Cash += amount;
-        userInfo.UserRenew();
-    }
+    // public void UpdateCash(int amount)
+    // {
+    //     userData.Cash += amount;
+    //     userInfo.UserRenew();
+    // }
 
-    public void UpdateBalance(ulong amount)
-    {
-        userData.Balance += amount;
-        userInfo.UserRenew();
-    }
+    // public void UpdateBalance(ulong amount)
+    // {
+    //     userData.Balance += amount;
+    //     userInfo.UserRenew();
+    // }
 
     //저장 및 로드 기능
     /// <summary>
