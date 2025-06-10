@@ -18,7 +18,7 @@ public class UserInfo : MonoBehaviour
 
     private void Start()
     {
-        userData = GameManager.Instance.userData;
+        userData = GameManager.Instance.currentUser;
         if (userData != null)
         {
             // UserData에 프로퍼티에서 등록한 이벤트로 자동으로 UserRenew 구독.

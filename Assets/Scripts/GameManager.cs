@@ -9,7 +9,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public UserData userData { get; set; }
     // public UserInfo userInfo;
-    public UserDatabase userDatabase = new UserDatabase();
+
+    public UserDatabase userDatabase = new UserDatabase(); // 전체 사용자 목록
+    // 현재 로그인한 사용자와 인덱스(목록 위치)
+    public UserData currentUser { get; set; }
+    public int currentUserIndex { get; set; } = -1;
     private string saveFilePath; // 저장할 파일 경로
     private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
 
@@ -70,19 +74,20 @@ public class GameManager : MonoBehaviour
 
     //저장 및 로드 기능
     /// <summary>
-    /// 사용자 데이터를 JSON파일로 저장.
+    /// 전체 사용자 데이터를 JSON파일로 저장.
+    /// 다중 데이터를 직렬화 >> 저장 파일 대체한 후 갱신.
     /// </summary>
     public void SaveUserData()
     {
         //Formatting.Indented 옵션은 사람이 읽기 쉽게 만듦.
-        string currentJson = JsonConvert.SerializeObject(userDatabase, Formatting.Indented);
+        string currentJson = JsonConvert.SerializeObject(userDatabase, Formatting.Indented); //직렬화화
 
         if (currentJson == lastSavedJson) return; // 저장 데이터가 같다면 함수 종료.
 
         try //예외 처리
         {
             //데이터 변경 시 파일에 저장.
-            File.WriteAllText(saveFilePath, currentJson);
+            File.WriteAllText(saveFilePath, currentJson); // 저장 파일을 대체해버린다.
 
             lastSavedJson = currentJson; // JSON 저장 상태 업데이트
 
@@ -96,6 +101,19 @@ public class GameManager : MonoBehaviour
         //따라서 try-catch문으로 예외처리를 한다.
     }
 
+    public void UpdateCurrentUserData() //다중 데이터에 인덱스를 부여한 다음 추가
+    {
+        if (currentUser != null && currentUserIndex >= 0 && currentUserIndex < userDatabase.Users.Count)
+        {
+            userDatabase.Users[currentUserIndex] = currentUser;
+            SaveUserData();
+        }
+        else
+        {
+            Debug.LogWarning("현재 사용자 업데이트 오류: 인덱스 또는 currentUser가 유효하지 않음.");
+        }
+    }
+
     /// <summary>
     /// JSON 파일에서 사용자 데이터를 불러옴.
     /// </summary>
@@ -106,7 +124,8 @@ public class GameManager : MonoBehaviour
             try //예외 처리
             {
                 string jdata = File.ReadAllText(saveFilePath);
-                userDatabase = JsonConvert.DeserializeObject<UserDatabase>(jdata);
+                userDatabase = JsonConvert.DeserializeObject<UserDatabase>(jdata); //단일데이터로 역직렬화해서
+                //데이터가 덮어씌워지는 버그 발생함.
                 lastSavedJson = jdata;
 
                 Debug.Log("JSON 데이터 불러오기 완료: " + saveFilePath);

@@ -58,6 +58,8 @@ public class SignUpManager : MonoBehaviour
         if (GameManager.Instance != null) //
         {
             GameManager.Instance.userDatabase.AddUser(newUser);
+            GameManager.Instance.currentUser = newUser;
+            GameManager.Instance.currentUserIndex = GameManager.Instance.userDatabase.Users.Count - 1;
         }
         else
         {
@@ -72,6 +74,6 @@ public class SignUpManager : MonoBehaviour
 
 
         // 새로운 UserData를 Json파일로 저장.
-        GameManager.Instance.SaveUserData();
+        GameManager.Instance.UpdateCurrentUserData();
     }
 }

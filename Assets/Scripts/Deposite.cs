@@ -7,21 +7,21 @@ public class Deposite : MonoBehaviour
 
     public void DepositAmount(int amount)
     {
-        if (amount <= 0) return;
+        if (GameManager.Instance.currentUser == null || amount <= 0) return;
 
-        if (GameManager.Instance.userData.Cash >= amount)
-        {
-            GameManager.Instance.userData.Cash -= amount;
-            GameManager.Instance.userData.Balance += (ulong)amount;
-            // GameManager.Instance.UpdateBalance((ulong)amount);
-            PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
-            GameManager.Instance.SaveUserData();
-            // GameManager.Instance.PlayerPrefsSave();
-        }
-        else
-        {
-            PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Fail);
-        }
+        if (GameManager.Instance.currentUser.Cash >= amount)
+            {
+                GameManager.Instance.currentUser.Cash -= amount;
+                GameManager.Instance.currentUser.Balance += (ulong)amount;
+                // GameManager.Instance.UpdateBalance((ulong)amount);
+                PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
+                GameManager.Instance.UpdateCurrentUserData();
+                // GameManager.Instance.PlayerPrefsSave();
+            }
+            else
+            {
+                PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Fail);
+            }
     }
 
     public void DepositInputAmount()

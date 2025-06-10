@@ -40,10 +40,9 @@ public class LoginManager : MonoBehaviour
             string jsonContent = File.ReadAllText(saveFilePath);
 
             // 저장한 json 데이터를 리스트로 역직렬화.
-            // 
-            UserData foundUser = JsonConvert.DeserializeObject<UserData>(jsonContent);
+            UserDatabase loadedDatabase = JsonConvert.DeserializeObject<UserDatabase>(jsonContent);
 
-            if (foundUser == null) // 데이터가 없다면.
+            if (loadedDatabase == null || loadedDatabase.Users == null || loadedDatabase.Users.Count == 0) // 데이터가 없다면.
             {
                 feedbackText.text = "사용자 데이터가 없습니다.";
                 return;
@@ -54,27 +53,38 @@ public class LoginManager : MonoBehaviour
             string inputPW = passwordInput.text;
 
             // 람다식으로 리스트를 순회하면서 ID/PW 모두 일치하는 사용자를 찾음.
-            // UserData foundUser = userList.Find(u => u.id == inputID && u.password == inputPW);
+            UserData foundUser = loadedDatabase.Users.Find (
+                u => u.id == inputID && u.password == inputPW
+            );
 
-            if (foundUser.id == inputID && foundUser.password == inputPW) // 일치하는 사용자가 있다면(로그인 성공)
+            // if (foundUser.id == inputID && foundUser.password == inputPW) // 일치하는 사용자가 있다면(로그인 성공)
+            // {
+            //     // UpdateUI();
+            //     feedbackText.text = "로그인 성공!";
+            //     Debug.Log("로그인 성공: " + foundUser.UserName);
+            //     userData = foundUser;
+            //     SceneManager.LoadScene("MainScene");
+            // }
+            if (foundUser != null)
             {
-                // UpdateUI();
                 feedbackText.text = "로그인 성공!";
-                Debug.Log("로그인 성공: " + foundUser.UserName);
-                userData = foundUser;
+                // 로그인 시, GameManager에 전체 데이터와 현재 사용자를 등록.
+                GameManager.Instance.userDatabase = loadedDatabase;
+                GameManager.Instance.currentUser = foundUser;
+                GameManager.Instance.currentUserIndex = loadedDatabase.Users.IndexOf(foundUser);
                 SceneManager.LoadScene("MainScene");
             }
             else // 없다면(로그인 실패)
             {
                 feedbackText.text = "아이디 또는 비밀번호가 일치하지 않습니다.";
-                Debug.LogWarning("로그인 실패: 일치하는 사용자 없음");
+                // Debug.LogWarning("로그인 실패: 일치하는 사용자 없음");
             }
         }
         //파일이 없거나 JSON형식이 깨진 경우.
         catch (System.Exception e)
         {
             feedbackText.text = "로그인 오류 발생: " + e.Message;
-            Debug.LogError("로그인 오류: " + e.Message);
+            // Debug.LogError("로그인 오류: " + e.Message);
         }
     }
 }
