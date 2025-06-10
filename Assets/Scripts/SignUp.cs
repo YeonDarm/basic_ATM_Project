@@ -49,9 +49,20 @@ public class SignUp : MonoBehaviour
 
         UserData newUser = new UserData(inputID.text, inputPassword.text, inputName.text, 10000, 50000);
 
-        // if (LoginManager.userData != null)
-        // {
+        if (GameManager.Instance.userData != null)
+        {
+            GameManager.Instance.userData = newUser;
+        }
+        else
+        {
+            Debug.LogWarning("GameManager확인 불가");
+        }
 
-        // }
+        Debug.Log("회원 가입 완료: " + newUser.UserName);
+
+        errorPanel.SetActive(false);
+        popupSignUp.SetActive(false);
+
+        GameManager.Instance.SaveUserData();
     }
 }

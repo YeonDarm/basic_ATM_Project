@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using Newtonsoft.Json;
 using UnityEngine;
 
 
@@ -16,6 +14,9 @@ public class UserData
 
 
     //프로퍼티로만 접근할 수 있음.
+    //Observer 패턴: 특정 객체의 상태가 변경될 때, 구독(Subscribe)한 다른 객체들이 자동으로 반응하는 구조.
+    //Property Change Notification(속성 변경 알림).
+    //MVVM(Model-View-ViewModel)
     [SerializeField] //JSON 직렬화하기 위해 필요.
     private string _userName; // 백킹 필드.
     public string UserName // << 해당 프로퍼티를 호출하면

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,23 +42,25 @@ public class GameManager : MonoBehaviour
         // PlayerPrefsLoad(); // 저장/불러오기 2.
     }
 
-    // public void UpdateName(string newName)
-    // {
-    //     userData.UserName = newName;
-    //     userInfo.UserRenew();
-    // }
+    // UserData 개선하면서 정리.
+    // GameManager 역할을 좀더 단순화하기 위한 개선.
+    /*public void UpdateName(string newName)
+    {
+        userData.UserName = newName;
+        userInfo.UserRenew();
+    }
 
-    // public void UpdateCash(int amount)
-    // {
-    //     userData.Cash += amount;
-    //     userInfo.UserRenew();
-    // }
+    public void UpdateCash(int amount)
+    {
+        userData.Cash += amount;
+        userInfo.UserRenew();
+    }
 
-    // public void UpdateBalance(ulong amount)
-    // {
-    //     userData.Balance += amount;
-    //     userInfo.UserRenew();
-    // }
+    public void UpdateBalance(ulong amount)
+    {
+        userData.Balance += amount;
+        userInfo.UserRenew();
+    } */
 
     //저장 및 로드 기능
     /// <summary>
@@ -68,15 +71,23 @@ public class GameManager : MonoBehaviour
         //Formatting.Indented 옵션은 사람이 읽기 쉽게 만듦.
         string currentJson = JsonConvert.SerializeObject(userData, Formatting.Indented);
 
-        if (currentJson == lastSavedJson) return;
+        if (currentJson == lastSavedJson) return; // 저장 데이터가 같다면 함수 종료.
 
-        //데이터 변경 시 파일에 저장.
-        File.WriteAllText(saveFilePath, currentJson);
+        try //예외 처리
+        {
+            //데이터 변경 시 파일에 저장.
+            File.WriteAllText(saveFilePath, currentJson);
 
-        lastSavedJson = currentJson; // JSON 저장 상태 업데이트
+            lastSavedJson = currentJson; // JSON 저장 상태 업데이트
 
-        Debug.Log("JSON 데이터 저장 완료: " + saveFilePath);
-
+            Debug.Log("JSON 데이터 저장 완료: " + saveFilePath);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("데이터 저장 중 오류 발생: " + ex.Message);
+        }
+        //파일 입출력 및 비동기 작업은 예상치 못한 오류가 발생한다.
+        //따라서 try-catch문으로 예외처리를 한다.
     }
 
     /// <summary>
