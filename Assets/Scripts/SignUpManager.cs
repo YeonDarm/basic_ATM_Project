@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SignUp : MonoBehaviour
+public class SignUpManager : MonoBehaviour
 {
     public TMP_InputField inputID;
     public TMP_InputField inputName;
@@ -13,7 +13,11 @@ public class SignUp : MonoBehaviour
     public GameObject popupSignUp;
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
+    public TextMeshProUGUI signUpText;
 
+    /// <summary>
+    /// 유효성 검사 > 계정 생성 > UI 비활성 > Json파일로 저장.
+    /// </summary>
     public void SignUpUI()
     {
         if (string.IsNullOrWhiteSpace(inputID.text))
@@ -47,22 +51,27 @@ public class SignUp : MonoBehaviour
             return;
         }
 
+        //계정 생성.
         UserData newUser = new UserData(inputID.text, inputPassword.text, inputName.text, 10000, 50000);
 
-        if (GameManager.Instance.userData != null)
+        //GameManager를 통해 UserData 할당.
+        if (GameManager.Instance != null) //
         {
-            GameManager.Instance.userData = newUser;
+            GameManager.Instance.userDatabase.AddUser(newUser);
         }
         else
         {
-            Debug.LogWarning("GameManager확인 불가");
+            Debug.LogWarning("GameManager 인스턴스를 찾을 수 없음.");
         }
 
-        Debug.Log("회원 가입 완료: " + newUser.UserName);
+        signUpText.text = "회원 가입 완료.";
 
-        errorPanel.SetActive(false);
+        // 관련 UI 전부 비활성화.
+        // errorPanel.SetActive(false);
         popupSignUp.SetActive(false);
 
+
+        // 새로운 UserData를 Json파일로 저장.
         GameManager.Instance.SaveUserData();
     }
 }

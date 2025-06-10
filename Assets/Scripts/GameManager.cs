@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public UserData userData { get; set; }
     // public UserInfo userInfo;
+    public UserDatabase userDatabase = new UserDatabase();
     private string saveFilePath; // 저장할 파일 경로
     private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
 
@@ -32,11 +33,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        LoadUserData(); //단일 사용자 데이터 처리. >> 다중 사용자 데이터 처리로 변경.
+
         // if (userInfo == null)
         // {
         //     userInfo = FindAnyObjectByType<UserInfo>();
         // }
-        LoadUserData(); //저장된 Json데이터를 불러온다.
+        //저장된 Json데이터를 불러온다.
         // userInfo.UserRenew(); // 사용자 데이터를 갱신한다.
         // UserData 프로퍼티에서 값이 변경되면 이벤트 구독으로 항상 바뀌도록 개선.
         // PlayerPrefsLoad(); // 저장/불러오기 2.
@@ -58,9 +61,12 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBalance(ulong amount)
     {
-        userData.Balance += amount;
-        userInfo.UserRenew();
+        userData.Balance += amount; // 값 조정.
+        userInfo.UserRenew();       // UI 변화.
     } */
+    // 위처럼 값을 변화하는 역할과 UI를 변화하는 역할이 서로 뒤섞여 있음.
+    // 버그 발생하기 쉬운 구조.
+
 
     //저장 및 로드 기능
     /// <summary>
@@ -69,7 +75,7 @@ public class GameManager : MonoBehaviour
     public void SaveUserData()
     {
         //Formatting.Indented 옵션은 사람이 읽기 쉽게 만듦.
-        string currentJson = JsonConvert.SerializeObject(userData, Formatting.Indented);
+        string currentJson = JsonConvert.SerializeObject(userDatabase, Formatting.Indented);
 
         if (currentJson == lastSavedJson) return; // 저장 데이터가 같다면 함수 종료.
 
@@ -97,16 +103,23 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(saveFilePath)) // 파일 읽기
         {
-            string jdata = File.ReadAllText(saveFilePath);
-            userData = JsonConvert.DeserializeObject<UserData>(jdata);
+            try //예외 처리
+            {
+                string jdata = File.ReadAllText(saveFilePath);
+                userDatabase = JsonConvert.DeserializeObject<UserDatabase>(jdata);
+                lastSavedJson = jdata;
 
-            Debug.Log("JSON 데이터 불러오기 완료: " + saveFilePath);
-
-            lastSavedJson = jdata;
+                Debug.Log("JSON 데이터 불러오기 완료: " + saveFilePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("사용자 데이터 로드 오류: " + ex.Message);
+            }
         }
         else
         {
             Debug.LogWarning("저장된 데이터가 없음.");
+            userDatabase = new UserDatabase(); // 새 데이터베이스 생성.
         }
     }
 
