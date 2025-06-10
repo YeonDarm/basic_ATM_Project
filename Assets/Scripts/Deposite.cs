@@ -15,7 +15,7 @@ public class Deposite : MonoBehaviour
             GameManager.Instance.UpdateBalance((ulong)amount);
             PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
             GameManager.Instance.SaveUserData();
-            GameManager.Instance.PlayerPrefsSave();
+            // GameManager.Instance.PlayerPrefsSave();
         }
         else
         {
@@ -29,7 +29,7 @@ public class Deposite : MonoBehaviour
         {
             DepositAmount(amount);
             GameManager.Instance.SaveUserData();
-            GameManager.Instance.PlayerPrefsSave();
+            // GameManager.Instance.PlayerPrefsSave();
         }
         else
         {

@@ -15,7 +15,7 @@ public class Withdraw : MonoBehaviour
             GameManager.Instance.UpdateCash(amount);
             PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
             GameManager.Instance.SaveUserData();
-            GameManager.Instance.PlayerPrefsSave();
+            // GameManager.Instance.PlayerPrefsSave();
         }
         else
         {
@@ -29,7 +29,7 @@ public class Withdraw : MonoBehaviour
         {
             WithdrawAmount(amount);
             GameManager.Instance.SaveUserData();
-            GameManager.Instance.PlayerPrefsSave();
+            // GameManager.Instance.PlayerPrefsSave();
         }
         else
         {

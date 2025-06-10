@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        userData = new UserData("상연", 100000, 50000);
+        // userData = new UserData("상연", 100000, 50000);
     }
 
     void Start()
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             userInfo = FindAnyObjectByType<UserInfo>();
         }
         LoadUserData();
-        PlayerPrefsLoad();
+        // PlayerPrefsLoad();
     }
 
     public void UpdateName(string newName)
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         lastSavedJson = currentJson; // JSON 저장 상태 업데이트
 
         Debug.Log("JSON 데이터 저장 완료: " + saveFilePath);
-        
+
     }
 
     /// <summary>
@@ -97,30 +97,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayerPrefsSave()
-    {
-        PlayerPrefs.SetString("Name", userData.UserName);
-        PlayerPrefs.SetInt("Cash", userData.Cash);
-        PlayerPrefs.SetString("Balance", userData.Balance.ToString()); // ulong 손실되는 값을 방지하기 위해 문자열로 저장.
-        PlayerPrefs.Save();
+    // PlayerPrefs를 활용한 Save/Load 기능.
+    // public void PlayerPrefsSave()
+    // {
+    //     PlayerPrefs.SetString("Name", userData.UserName);
+    //     PlayerPrefs.SetInt("Cash", userData.Cash);
+    //     PlayerPrefs.SetString("Balance", userData.Balance.ToString()); // ulong 손실되는 값을 방지하기 위해 문자열로 저장.
+    //     PlayerPrefs.Save();
 
-        Debug.Log($"PlayerPrefs 저장 확인: Name: {userData.UserName}, Cash: {userData.Cash}, Balance: {userData.Balance}");
-    }
+    //     Debug.Log($"PlayerPrefs 저장 확인: Name: {userData.UserName}, Cash: {userData.Cash}, Balance: {userData.Balance}");
+    // }
 
-    public void PlayerPrefsLoad()
-    {
-        if (PlayerPrefs.HasKey("Name") && PlayerPrefs.HasKey("Cash") && PlayerPrefs.HasKey("Balance"))
-        {
-            string name = PlayerPrefs.GetString("Name");
-            int cash = PlayerPrefs.GetInt("Cash");
-            ulong balance = ulong.Parse(PlayerPrefs.GetString("Balance")); //Parse로 문자열을 ulong으로 변환.
+    // public void PlayerPrefsLoad()
+    // {
+    //     if (PlayerPrefs.HasKey("Name") && PlayerPrefs.HasKey("Cash") && PlayerPrefs.HasKey("Balance"))
+    //     {
+    //         string name = PlayerPrefs.GetString("Name");
+    //         int cash = PlayerPrefs.GetInt("Cash");
+    //         ulong balance = ulong.Parse(PlayerPrefs.GetString("Balance")); //Parse로 문자열을 ulong으로 변환.
 
-            userData = new UserData(name, cash, balance);
-            Debug.Log($"PlayerPrefs 불러오기 확인: Name: {name}, Cash: {cash}, Balance: {balance}");
-        }
-        else
-        {
-            Debug.Log($"UserData 없음.");
-        }
-    }
+    //         userData = new UserData(name, cash, balance);
+    //         Debug.Log($"PlayerPrefs 불러오기 확인: Name: {name}, Cash: {cash}, Balance: {balance}");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"UserData 없음.");
+    //     }
+    // }
 }

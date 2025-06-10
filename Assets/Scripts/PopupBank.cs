@@ -7,14 +7,12 @@ public class PopupBank : MonoBehaviour
 {
     [SerializeField] private GameObject deposite;
     [SerializeField] private GameObject withdraw;
+
     [SerializeField] private Vector2 popupOnPos = new Vector2(0, 0);
     [SerializeField] private Vector2 popupOffPos = new Vector2(0, -924f);
     [SerializeField] private float speed; // 인스펙터에서 조정
 
-    void Start()
-    {
-        
-    }
+
 
     public void ActiveUI(GameObject uiObject)
     {
@@ -38,7 +36,7 @@ public class PopupBank : MonoBehaviour
     }
 
 
-    public enum UIType { Deposite, Withdraw }
+    public enum UIType { Deposite, Withdraw, SignUp }
 
     public void OpenUI(UIType uiType)
     {
