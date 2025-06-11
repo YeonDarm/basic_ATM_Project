@@ -1221,7 +1221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8456832467340094996, guid: dac09adef9ff80d4fb73e585828506ac, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoginUser
+      value: OnLoginButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 8456832467340094996, guid: dac09adef9ff80d4fb73e585828506ac, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

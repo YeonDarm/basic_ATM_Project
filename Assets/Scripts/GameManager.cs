@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     // public UserInfo userInfo;
 
     public UserDatabase userDatabase = new UserDatabase(); // 전체 사용자 목록
-    // 현재 로그인한 사용자와 인덱스(목록 위치)
-    public UserData currentUser { get; set; }
-    public int currentUserIndex { get; set; } = -1;
+    public UserData currentUser { get; set; } // 로그인한 사용자
+    public string currentUserID { get; private set; } // 로그인을 위한 ID
+    // public int currentUserIndex { get; set; } = -1; // 리스트: 다중 데이터 관리용 인덱스 변수수
     private string saveFilePath; // 저장할 파일 경로
     private string lastSavedJson = ""; // 마지막으로 저장한 파일 Json형태로 보관.
 
@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
-        // userData = new UserData("asd", "asd", "상연", 100000, 50000);
     }
 
     void Start()
@@ -76,6 +74,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 전체 사용자 데이터를 JSON파일로 저장.
     /// 다중 데이터를 직렬화 >> 저장 파일 대체한 후 갱신.
+    /// 딕셔너리 직렬화.
     /// </summary>
     public void SaveUserData()
     {
@@ -101,18 +100,18 @@ public class GameManager : MonoBehaviour
         //따라서 try-catch문으로 예외처리를 한다.
     }
 
-    public void UpdateCurrentUserData() //다중 데이터에 인덱스를 부여한 다음 추가
-    {
-        if (currentUser != null && currentUserIndex >= 0 && currentUserIndex < userDatabase.Users.Count)
-        {
-            userDatabase.Users[currentUserIndex] = currentUser;
-            SaveUserData();
-        }
-        else
-        {
-            Debug.LogWarning("현재 사용자 업데이트 오류: 인덱스 또는 currentUser가 유효하지 않음.");
-        }
-    }
+    // public void UpdateCurrentUserData() //리스트: 다중 데이터에 인덱스를 부여한 다음 추가
+    // {
+    //     if (currentUser != null && currentUserIndex >= 0 && currentUserIndex < userDatabase.Users.Count)
+    //     {
+    //         userDatabase.Users[currentUserIndex] = currentUser;
+    //         SaveUserData();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("현재 사용자 업데이트 오류: 인덱스 또는 currentUser가 유효하지 않음.");
+    //     }
+    // }
 
     /// <summary>
     /// JSON 파일에서 사용자 데이터를 불러옴.
@@ -123,11 +122,17 @@ public class GameManager : MonoBehaviour
         {
             try //예외 처리
             {
-                string jdata = File.ReadAllText(saveFilePath);
-                userDatabase = JsonConvert.DeserializeObject<UserDatabase>(jdata); //단일데이터로 역직렬화해서
-                //데이터가 덮어씌워지는 버그 발생함.
-                lastSavedJson = jdata;
+                // string jdata = File.ReadAllText(saveFilePath);
+                // userDatabase = JsonConvert.DeserializeObject<UserDatabase>(jdata); //단일데이터로 역직렬화해서
+                string json = File.ReadAllText(saveFilePath);
+                UserDatabase db = JsonConvert.DeserializeObject<UserDatabase>(json);
+                
+                //db가 null인 경우를 대비.
+                userDatabase = db ?? new UserDatabase(); // ??: 병합 연산자(Null-Coalescing Operator) 
+                                                         // db가 null이면 오른쪽 값을 반환, 그렇지 않으면 db를 반환.
 
+                //데이터가 덮어씌워지는 버그 발생함. >> 리스트로 데이터 관리했을 때.
+                lastSavedJson = json;
                 Debug.Log("JSON 데이터 불러오기 완료: " + saveFilePath);
             }
             catch (Exception ex)
@@ -169,4 +174,9 @@ public class GameManager : MonoBehaviour
     //         Debug.Log($"UserData 없음.");
     //     }
     // }
+
+    public void SetCurrentUser(string id)
+    {
+        currentUser = userDatabase.GetUser(id);
+    }
 }

@@ -6,12 +6,13 @@ using Newtonsoft.Json;
 public class UserDatabase
 {
     [JsonProperty("users")]
-    public List<UserData> Users { get; set; } = new List<UserData>();
+    public Dictionary<string, UserData> Users { get; private set; }
+        = new Dictionary<string, UserData>(StringComparer.OrdinalIgnoreCase);
 
     // 특정 ID의 사용자가 이미 등록되어 있는지 확인.
     public bool ContainsUser(string id)
     {
-        return Users.Exists(u => u.id == id);
+        return !string.IsNullOrWhiteSpace(id) && Users.ContainsKey(id);
     }
 
     public void AddUser(UserData newUser)
@@ -20,16 +21,32 @@ public class UserDatabase
         {
             throw new ArgumentNullException(nameof(newUser));
         }
-        
+
         // Users.Add(newUser);
         if (!ContainsUser(newUser.id))
         {
-            Users.Add(newUser);
+            Users.Add(newUser.id, newUser);
         }
         else
         {
             //text로 전달해도 좋은...
-            throw new Exception("이미 사용 중인 ID.");
+            throw new InvalidOperationException($"ID '{newUser.id}'는 이미 사용 중입니다.");
         }
+    }
+
+    //데이터 가져오기..
+    public UserData GetUser(string id)
+    {
+        if (ContainsUser(id))
+        {
+            return Users[id];
+        }
+        return null;
+    }
+
+    //데이터 삭제(나중에...)
+    public bool RemoveUser(string id)
+    {
+        return ContainsUser(id) && Users.Remove(id);
     }
 }

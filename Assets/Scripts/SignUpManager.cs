@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
+using System;
 
 public class SignUpManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class SignUpManager : MonoBehaviour
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
     public TextMeshProUGUI signUpText;
+
 
     /// <summary>
     /// 유효성 검사 > 계정 생성 > UI 비활성 > Json파일로 저장.
@@ -55,25 +58,33 @@ public class SignUpManager : MonoBehaviour
         UserData newUser = new UserData(inputID.text, inputPassword.text, inputName.text, 10000, 50000);
 
         //GameManager를 통해 UserData 할당.
-        if (GameManager.Instance != null) //
+        // if (GameManager.Instance != null) //
+        // {
+        //     GameManager.Instance.userDatabase.AddUser(newUser);
+        //     // GameManager.Instance.currentUser = newUser;
+        //     // GameManager.Instance.currentUserIndex = GameManager.Instance.userDatabase.Users.Count - 1;
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("GameManager 인스턴스를 찾을 수 없음.");
+        // }
+        
+        
+        try
         {
-            GameManager.Instance.userDatabase.AddUser(newUser);
-            GameManager.Instance.currentUser = newUser;
-            GameManager.Instance.currentUserIndex = GameManager.Instance.userDatabase.Users.Count - 1;
+            LoginManager.Instance.SignUp(inputID.text, inputPassword.text, inputName.text);
+            signUpText.text = "회원 가입 완료.";
+            Invoke(nameof(DisableSignUpPopup), 0.5f);
         }
-        else
+        catch (Exception ex)
         {
-            Debug.LogWarning("GameManager 인스턴스를 찾을 수 없음.");
+            errorText.text = ex.Message;
+            errorPanel.SetActive(true);
         }
+    }
 
-        signUpText.text = "회원 가입 완료.";
-
-        // 관련 UI 전부 비활성화.
-        // errorPanel.SetActive(false);
+    public void DisableSignUpPopup()
+    {
         popupSignUp.SetActive(false);
-
-
-        // 새로운 UserData를 Json파일로 저장.
-        GameManager.Instance.UpdateCurrentUserData();
     }
 }

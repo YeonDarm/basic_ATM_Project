@@ -15,7 +15,7 @@ public class Deposite : MonoBehaviour
                 GameManager.Instance.currentUser.Balance += (ulong)amount;
                 // GameManager.Instance.UpdateBalance((ulong)amount);
                 PopupMessage.Instance.PopupUI(PopupMessage.PopupType.Success);
-                GameManager.Instance.UpdateCurrentUserData();
+                GameManager.Instance.SaveUserData();
                 // GameManager.Instance.PlayerPrefsSave();
             }
             else
